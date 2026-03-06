@@ -1,0 +1,42 @@
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Красивый фон */
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.mode-btn {
+    padding: 20px;
+    border: none;
+    border-radius: 12px;
+    background: #f0f2f5;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.mode-btn:hover {
+    background: #1a73e8;
+    color: white;
+}
+
+.hidden { display: none; }
