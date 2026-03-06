@@ -2,82 +2,26 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>IT English Vocabulary Lab</title>
-    <style>
-        body { font-family: sans-serif; background: #f4f4f9; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        .container { max-width: 800px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        h1 { color: #333; text-align: center; }
-        .word-card { border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 5px; display: flex; justify-content: space-between; align-items: center; }
-        input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 200px; }
-        .correct { background-color: #d4edda; border-color: #c3e6cb; }
-        .incorrect { background-color: #f8d7da; border-color: #f5c6cb; }
-        .check-btn { margin-top: 20px; padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
-        .check-btn:hover { background: #0056b3; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT English Lab 4</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="container">
+        <h1 id="title">IT Vocabulary Trainer</h1>
+        
+        <div id="menu" class="menu-grid">
+            <button class="mode-btn" onclick="startMode('learn')">📖 Карточки</button>
+            <button class="mode-btn" onclick="startMode('test')">📝 Тест</button>
+            <button class="mode-btn" onclick="startMode('write')">✍️ Написание</button>
+            <button class="mode-btn" onclick="startMode('list')">📋 Список</button>
+        </div>
 
-<div class="container">
-    <h1>IT Vocabulary Practice</h1>
-    <p>Введите перевод для каждого слова/фразы:</p>
-    <div id="quiz-container"></div>
-    <button class="check-btn" onclick="checkAnswers()">Проверить ответы</button>
-</div>
-
-<script>
-    const vocabulary = [
-        { word: "An approach", translation: "подход" },
-        { word: "To approach", translation: "подходить" },
-        { word: "Highlighting", translation: "выделение" },
-        { word: "Undefined", translation: "неопределенный" },
-        { word: "Trace", translation: "отслеживать" },
-        { word: "Desktop", translation: "рабочий стол" },
-        { word: "Disabled", translation: "отключенный" },
-        { word: "Enabled", translation: "включенный" },
-        { word: "Valid", translation: "действительный" },
-        { word: "Managing", translation: "управление" },
-        { word: "Source", translation: "источник" },
-        { word: "Met", translation: "удовлетворенный" },
-        { word: "Current", translation: "текущий" },
-        { word: "Available", translation: "доступный" },
-        { word: "Quotient", translation: "частное" },
-        { word: "Remainder", translation: "остаток" },
-        { word: "Introduction", translation: "введение" },
-        { word: "Cases", translation: "случаи" },
-        { word: "Each", translation: "каждый" },
-        { word: "Of", translation: "из" },
-        { word: "From", translation: "от" }
-    ];
-
-    function initQuiz() {
-        const container = document.getElementById('quiz-container');
-        vocabulary.forEach((item, index) => {
-            const div = document.createElement('div');
-            div.className = 'word-card';
-            div.innerHTML = `
-                <span>${item.word}</span>
-                <input type="text" id="input-${index}" placeholder="Перевод...">
-            `;
-            container.appendChild(div);
-        });
-    }
-
-    function checkAnswers() {
-        vocabulary.forEach((item, index) => {
-            const input = document.getElementById(`input-${index}`);
-            const userValue = input.value.trim().toLowerCase();
-            const correctValue = item.translation.toLowerCase();
-
-            if (userValue === correctValue || correctValue.includes(userValue) && userValue.length > 2) {
-                input.parentElement.className = 'word-card correct';
-            } else {
-                input.parentElement.className = 'word-card incorrect';
-            }
-        });
-    }
-
-    initQuiz();
-</script>
-
+        <div id="game-area" class="hidden">
+            <div id="content"></div>
+            <button class="back-btn" onclick="location.reload()">← Назад</button>
+        </div>
+    </div>
+    <script src="app.js"></script>
 </body>
 </html>
