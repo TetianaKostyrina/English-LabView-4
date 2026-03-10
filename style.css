@@ -1,74 +1,115 @@
-body{
-font-family:Arial;
-margin:0;
-background:#f2f4f6;
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to bottom, #f0f4f8, #d9e2ec);
+  color: #333;
 }
 
-.top{
-background:#2c3e50;
-color:white;
-padding:20px;
-text-align:center;
+.top {
+  text-align: center;
+  padding: 20px;
+  background: #4a90e2;
+  color: white;
 }
 
-.tabs{
-display:flex;
-gap:10px;
-padding:10px;
-background:#ecf0f1;
-flex-wrap:wrap;
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
 }
 
-.tab{
-padding:10px 14px;
-border:none;
-background:#bdc3c7;
-cursor:pointer;
+.tab {
+  padding: 10px 20px;
+  margin: 0 5px;
+  border: none;
+  background: #ccc;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
 }
 
-.tab.active{
-background:#3498db;
-color:white;
+.tab.active {
+  background: #4a90e2;
+  color: white;
 }
 
-.container{
-padding:20px;
+.container {
+  max-width: 700px;
+  margin: auto;
+  padding: 20px;
 }
 
-.panel{
-display:none;
-background:white;
-padding:20px;
-border-radius:8px;
+.panel {
+  display: none;
 }
 
-.panel.active{
-display:block;
+.panel.active {
+  display: block;
 }
 
-.big{
-font-size:24px;
-margin:15px 0;
+.big {
+  font-size: 24px;
+  margin: 20px 0;
 }
 
-.options button{
-display:block;
-margin:8px 0;
-padding:10px;
-width:250px;
-cursor:pointer;
+.options button,
+.btnNext,
+.btnCheck {
+  display: block;
+  margin: 10px 0;
+  padding: 12px 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #4a90e2;
+  color: white;
+  transition: background 0.3s;
 }
 
-.matchGrid{
-display:flex;
-gap:60px;
+.options button:hover,
+.btnNext:hover,
+.btnCheck:hover {
+  background: #357ab8;
 }
 
-#matchLeft div,
-#matchRight div{
-padding:8px;
-border:1px solid #ccc;
-margin:6px 0;
-cursor:pointer;
-background:#fafafa;
+.feedback {
+  font-size: 18px;
+  margin: 10px 0;
+  min-height: 24px;
+}
+
+.matchGrid {
+  display: flex;
+  justify-content: space-between;
+}
+
+.matchColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.matchColumn button {
+  margin: 5px 0;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  background: #4a90e2;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.matchColumn button:hover {
+  background: #357ab8;
+}
+
+#typeInput {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #aaa;
 }
