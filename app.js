@@ -24,10 +24,13 @@ const VOCAB = [
 
 let index = 0;
 
+// перемешивание массива
 function shuffle(arr){ return arr.sort(()=>Math.random()-0.5); }
 
+// функция озвучки с отменой предыдущей
 function speak(word){
   if('speechSynthesis' in window){
+    window.speechSynthesis.cancel(); // отменяем предыдущие
     const utter = new SpeechSynthesisUtterance(word);
     utter.lang = 'en-US';
     window.speechSynthesis.speak(utter);
@@ -36,11 +39,12 @@ function speak(word){
 
 document.addEventListener("DOMContentLoaded", ()=>{
 
-  // === RU → EN ===
+  // =================== RU → EN ===================
   function showCard(){
     const item = VOCAB[index];
     document.getElementById("t1Prompt").textContent = item.ru;
 
+    // варианты
     let options = shuffle(VOCAB.filter(o => o.en !== item.en)).slice(0,3);
     options.push(item);
     options = shuffle(options);
@@ -56,6 +60,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
       };
       box.appendChild(btn);
     });
+
+    // озвучка слова при показе карточки
+    speak(item.en);
   }
 
   document.getElementById("btnT1Next").onclick = ()=>{
@@ -66,12 +73,11 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
   showCard();
 
-  // === MCQ ===
+  // =================== MCQ ===================
   let mcqIndex=0;
   function showMcq(){
     const item = VOCAB[mcqIndex];
     document.getElementById("mcqWord").textContent = item.en;
-    speak(item.en);
 
     let options = shuffle(VOCAB.filter(o=>o.ru!==item.ru)).slice(0,3);
     options.push(item);
@@ -82,9 +88,14 @@ document.addEventListener("DOMContentLoaded", ()=>{
     options.forEach(o=>{
       const btn=document.createElement("button");
       btn.textContent=o.ru;
-      btn.onclick=()=>{document.getElementById("mcqFeedback").textContent=(o.ru===item.ru)?"✅ правильно":"❌ ошибка";}
+      btn.onclick=()=>{
+        document.getElementById("mcqFeedback").textContent = (o.ru===item.ru)?"✅ правильно":"❌ ошибка";
+      };
       box.appendChild(btn);
     });
+
+    // озвучка слова
+    speak(item.en);
   }
 
   document.getElementById("btnMcqNext").onclick=()=>{
@@ -95,13 +106,14 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
   showMcq();
 
-  // === Ввод ===
+  // =================== Ввод ===================
   let typeIndex=0;
   function showTyping(){
     const item=VOCAB[typeIndex];
     document.getElementById("typePrompt").textContent=item.ru;
     document.getElementById("typeInput").value="";
     document.getElementById("typeFeedback").textContent="";
+
     speak(item.en);
   }
 
@@ -119,7 +131,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
   showTyping();
 
-  // === Соответствия ===
+  // =================== Соответствия ===================
   function showMatch(){
     const shuffled = shuffle([...VOCAB]);
     const left = shuffle(shuffled.map(o=>o.en));
@@ -158,7 +170,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
   showMatch();
 
-  // === Вкладки ===
+  // =================== Вкладки ===================
   document.querySelectorAll(".tab").forEach(tab=>{
     tab.onclick=()=>{
       document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
