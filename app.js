@@ -1,40 +1,92 @@
-const vocabulary = [
-    { w: "An approach", t: "подход" }, { w: "To approach", t: "подходить" },
-    { w: "Highlighting", t: "выделение" }, { w: "Undefined", t: "неопределенный" },
-    { w: "Trace", t: "отслеживать" }, { w: "Desktop", t: "рабочий стол" },
-    { w: "Disabled", t: "отключенный" }, { w: "Enabled", t: "включенный" },
-    { w: "Valid", t: "действительный" }, { w: "Managing", t: "управление" },
-    { w: "Source", t: "источник" }, { w: "Met", t: "удовлетворенный" },
-    { w: "Current", t: "текущий" }, { w: "Available", t: "доступный" },
-    { w: "Quotient", t: "частное" }, { w: "Remainder", t: "остаток" },
-    { w: "Introduction", t: "введение" }, { w: "Cases", t: "случаи" },
-    { w: "Each", t: "каждый" }, { w: "Of", t: "из" }, { w: "From", t: "от" }
+const VOCAB = [
+
+{en:"approach",ru:"подход"},
+{en:"to approach",ru:"подходить"},
+{en:"highlighting",ru:"выделение"},
+{en:"undefined",ru:"неопределенный"},
+{en:"trace",ru:"отслеживать"},
+{en:"desktop",ru:"рабочий стол"},
+{en:"disabled",ru:"отключенный"},
+{en:"enabled",ru:"включенный"},
+{en:"valid",ru:"валидный"},
+{en:"managing",ru:"управление"},
+{en:"source",ru:"источник"},
+{en:"met",ru:"условие выполнено"},
+{en:"current",ru:"текущий"},
+{en:"available",ru:"доступный"},
+{en:"quotient",ru:"частное"},
+{en:"remainder",ru:"остаток"},
+{en:"introduction",ru:"введение"},
+{en:"cases",ru:"случаи"},
+{en:"each",ru:"каждый"},
+{en:"of",ru:"из"},
+{en:"from",ru:"от / из"}
+
 ];
 
-// Функция для озвучки (использует системный синтезатор речи)
-function playSound(text) {
-    const msg = new SpeechSynthesisUtterance();
-    msg.text = text;
-    msg.lang = 'en-US';
-    window.speechSynthesis.speak(msg);
+let index=0;
+
+function shuffle(arr){
+return arr.sort(()=>Math.random()-0.5);
 }
 
-function startMode(mode) {
-    document.getElementById('menu').classList.add('hidden');
-    const area = document.getElementById('game-area');
-    const content = document.getElementById('content');
-    area.classList.remove('hidden');
+function showCard(){
 
-    if (mode === 'learn') {
-        const item = vocabulary[Math.floor(Math.random() * vocabulary.length)];
-        content.innerHTML = `
-            <div onclick="playSound('${item.w}')" style="cursor:pointer">
-                <h2>${item.w} 🔊</h2>
-                <p>${item.t}</p>
-            </div>
-            <button onclick="startMode('learn')" style="margin-top:10px">Следующее</button>
-        `;
-    } else {
-        content.innerHTML = `<h3>Режим ${mode} активирован!</h3>`;
-    }
+const item=VOCAB[index];
+document.getElementById("t1Prompt").textContent=item.ru;
+
+let options=shuffle([...VOCAB]).slice(0,4);
+
+if(!options.includes(item)){
+options[0]=item;
 }
+
+const box=document.getElementById("t1Options");
+box.innerHTML="";
+
+options.forEach(o=>{
+
+const btn=document.createElement("button");
+btn.textContent=o.en;
+
+btn.onclick=()=>{
+if(o.en===item.en){
+document.getElementById("t1Feedback").textContent="✅ правильно";
+}else{
+document.getElementById("t1Feedback").textContent="❌ ошибка";
+}
+};
+
+box.appendChild(btn);
+
+});
+
+}
+
+document.getElementById("btnT1Next").onclick=()=>{
+
+index++;
+
+if(index>=VOCAB.length){
+index=0;
+}
+
+showCard();
+
+};
+
+showCard();
+
+document.querySelectorAll(".tab").forEach(tab=>{
+
+tab.onclick=()=>{
+
+document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
+
+tab.classList.add("active");
+document.getElementById(tab.dataset.tab).classList.add("active");
+
+};
+
+});
