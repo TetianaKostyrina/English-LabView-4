@@ -27,43 +27,40 @@
 <h2>Выберите английское слово</h2>
 <div id="t1Prompt" class="big"></div>
 <div id="t1Options" class="options"></div>
-<div id="t1Feedback"></div>
-<button id="btnT1Next">Следующий</button>
+<div id="t1Feedback" class="feedback"></div>
+<button id="btnT1Next" class="btnNext">Следующий</button>
 </section>
 
 <section id="mcq" class="panel">
 <h2>Выберите перевод</h2>
 <div id="mcqWord" class="big"></div>
-<div id="mcqOptions"></div>
-<div id="mcqFeedback"></div>
-<button id="btnMcqNext">Следующий</button>
+<div id="mcqOptions" class="options"></div>
+<div id="mcqFeedback" class="feedback"></div>
+<button id="btnMcqNext" class="btnNext">Следующий</button>
 </section>
 
 <section id="typing" class="panel">
 <h2>Введите английское слово</h2>
 <div id="typePrompt" class="big"></div>
 <input id="typeInput" placeholder="Введите слово">
-<button id="btnCheckType">Проверить</button>
-<div id="typeFeedback"></div>
-<button id="btnTypeNext">Следующий</button>
+<button id="btnCheckType" class="btnCheck">Проверить</button>
+<div id="typeFeedback" class="feedback"></div>
+<button id="btnTypeNext" class="btnNext">Следующий</button>
 </section>
 
 <section id="match" class="panel">
 <h2>Сопоставьте пары</h2>
-
 <div class="matchGrid">
 <div>
 <h3>EN</h3>
-<div id="matchLeft"></div>
+<div id="matchLeft" class="matchColumn"></div>
 </div>
-
 <div>
 <h3>RU</h3>
-<div id="matchRight"></div>
+<div id="matchRight" class="matchColumn"></div>
 </div>
 </div>
-
-<div id="matchFeedback"></div>
+<div id="matchFeedback" class="feedback"></div>
 </section>
 
 </main>
