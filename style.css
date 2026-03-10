@@ -1,42 +1,74 @@
-body {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Красивый фон */
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+body{
+font-family:Arial;
+margin:0;
+background:#f2f4f6;
 }
 
-.container {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    text-align: center;
-    width: 90%;
-    max-width: 500px;
+.top{
+background:#2c3e50;
+color:white;
+padding:20px;
+text-align:center;
 }
 
-.menu-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
+.tabs{
+display:flex;
+gap:10px;
+padding:10px;
+background:#ecf0f1;
+flex-wrap:wrap;
 }
 
-.mode-btn {
-    padding: 20px;
-    border: none;
-    border-radius: 12px;
-    background: #f0f2f5;
-    cursor: pointer;
-    font-weight: bold;
-    transition: 0.3s;
+.tab{
+padding:10px 14px;
+border:none;
+background:#bdc3c7;
+cursor:pointer;
 }
 
-.mode-btn:hover {
-    background: #1a73e8;
-    color: white;
+.tab.active{
+background:#3498db;
+color:white;
 }
 
-.hidden { display: none; }
+.container{
+padding:20px;
+}
+
+.panel{
+display:none;
+background:white;
+padding:20px;
+border-radius:8px;
+}
+
+.panel.active{
+display:block;
+}
+
+.big{
+font-size:24px;
+margin:15px 0;
+}
+
+.options button{
+display:block;
+margin:8px 0;
+padding:10px;
+width:250px;
+cursor:pointer;
+}
+
+.matchGrid{
+display:flex;
+gap:60px;
+}
+
+#matchLeft div,
+#matchRight div{
+padding:8px;
+border:1px solid #ccc;
+margin:6px 0;
+cursor:pointer;
+background:#fafafa;
+}
