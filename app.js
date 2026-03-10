@@ -24,14 +24,19 @@ const VOCAB = [
 
 let index = 0;
 
-// Перемешивание массива
-function shuffle(arr){
-  return arr.sort(()=>Math.random()-0.5);
+function shuffle(arr){ return arr.sort(()=>Math.random()-0.5); }
+
+function speak(word){
+  if('speechSynthesis' in window){
+    const utter = new SpeechSynthesisUtterance(word);
+    utter.lang = 'en-US';
+    window.speechSynthesis.speak(utter);
+  }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", ()=>{
 
-  // =================== УПРАЖНЕНИЕ 1: RU → EN ===================
+  // === RU → EN ===
   function showCard(){
     const item = VOCAB[index];
     document.getElementById("t1Prompt").textContent = item.ru;
@@ -42,119 +47,110 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const box = document.getElementById("t1Options");
     box.innerHTML = "";
-
-    options.forEach(o => {
+    options.forEach(o=>{
       const btn = document.createElement("button");
       btn.textContent = o.en;
-      btn.onclick = () => {
-        document.getElementById("t1Feedback").textContent =
-          (o.en === item.en) ? "✅ правильно" : "❌ ошибка";
+      btn.onclick = ()=>{
+        document.getElementById("t1Feedback").textContent = (o.en===item.en)?"✅ правильно":"❌ ошибка";
+        if(o.en===item.en) speak(item.en);
       };
       box.appendChild(btn);
     });
   }
 
-  document.getElementById("btnT1Next").onclick = () => {
-    index = (index + 1) % VOCAB.length;
+  document.getElementById("btnT1Next").onclick = ()=>{
+    index = (index+1)%VOCAB.length;
     showCard();
-    document.getElementById("t1Feedback").textContent = "";
+    document.getElementById("t1Feedback").textContent="";
   }
 
   showCard();
 
-  // =================== УПРАЖНЕНИЕ 2: MCQ (выбор перевода) ===================
-  let mcqIndex = 0;
+  // === MCQ ===
+  let mcqIndex=0;
   function showMcq(){
     const item = VOCAB[mcqIndex];
     document.getElementById("mcqWord").textContent = item.en;
+    speak(item.en);
 
-    let options = shuffle(VOCAB.filter(o => o.ru !== item.ru)).slice(0,3);
+    let options = shuffle(VOCAB.filter(o=>o.ru!==item.ru)).slice(0,3);
     options.push(item);
     options = shuffle(options);
 
     const box = document.getElementById("mcqOptions");
-    box.innerHTML = "";
-    options.forEach(o => {
-      const btn = document.createElement("button");
-      btn.textContent = o.ru;
-      btn.onclick = () => {
-        document.getElementById("mcqFeedback").textContent =
-          (o.ru === item.ru) ? "✅ правильно" : "❌ ошибка";
-      };
+    box.innerHTML="";
+    options.forEach(o=>{
+      const btn=document.createElement("button");
+      btn.textContent=o.ru;
+      btn.onclick=()=>{document.getElementById("mcqFeedback").textContent=(o.ru===item.ru)?"✅ правильно":"❌ ошибка";}
       box.appendChild(btn);
     });
   }
 
-  document.getElementById("btnMcqNext").onclick = () => {
-    mcqIndex = (mcqIndex + 1) % VOCAB.length;
+  document.getElementById("btnMcqNext").onclick=()=>{
+    mcqIndex=(mcqIndex+1)%VOCAB.length;
     showMcq();
-    document.getElementById("mcqFeedback").textContent = "";
+    document.getElementById("mcqFeedback").textContent="";
   }
 
   showMcq();
 
-  // =================== УПРАЖНЕНИЕ 3: Ввод слова ===================
-  let typeIndex = 0;
+  // === Ввод ===
+  let typeIndex=0;
   function showTyping(){
-    const item = VOCAB[typeIndex];
-    document.getElementById("typePrompt").textContent = item.ru;
-    document.getElementById("typeInput").value = "";
-    document.getElementById("typeFeedback").textContent = "";
+    const item=VOCAB[typeIndex];
+    document.getElementById("typePrompt").textContent=item.ru;
+    document.getElementById("typeInput").value="";
+    document.getElementById("typeFeedback").textContent="";
+    speak(item.en);
   }
 
-  document.getElementById("btnCheckType").onclick = () => {
-    const item = VOCAB[typeIndex];
-    const input = document.getElementById("typeInput").value.trim();
-    document.getElementById("typeFeedback").textContent =
-      (input.toLowerCase() === item.en.toLowerCase()) ? "✅ правильно" : `❌ ошибка, правильный ответ: ${item.en}`;
+  document.getElementById("btnCheckType").onclick=()=>{
+    const item=VOCAB[typeIndex];
+    const input=document.getElementById("typeInput").value.trim();
+    document.getElementById("typeFeedback").textContent=
+      (input.toLowerCase()===item.en.toLowerCase())?"✅ правильно":`❌ ошибка, правильный ответ: ${item.en}`;
   }
 
-  document.getElementById("btnTypeNext").onclick = () => {
-    typeIndex = (typeIndex + 1) % VOCAB.length;
+  document.getElementById("btnTypeNext").onclick=()=>{
+    typeIndex=(typeIndex+1)%VOCAB.length;
     showTyping();
   }
 
   showTyping();
 
-  // =================== УПРАЖНЕНИЕ 4: Соответствия ===================
+  // === Соответствия ===
   function showMatch(){
     const shuffled = shuffle([...VOCAB]);
-    const left = shuffle(shuffled.map(o => o.en));
-    const right = shuffle(shuffled.map(o => o.ru));
+    const left = shuffle(shuffled.map(o=>o.en));
+    const right = shuffle(shuffled.map(o=>o.ru));
 
     const leftDiv = document.getElementById("matchLeft");
     const rightDiv = document.getElementById("matchRight");
-    leftDiv.innerHTML = "";
-    rightDiv.innerHTML = "";
+    leftDiv.innerHTML=""; rightDiv.innerHTML="";
 
-    left.forEach((word, i) => {
-      const btn = document.createElement("button");
-      btn.textContent = word;
-      btn.dataset.index = i;
+    left.forEach((word,i)=>{
+      const btn=document.createElement("button");
+      btn.textContent=word; btn.dataset.index=i;
       leftDiv.appendChild(btn);
     });
 
-    right.forEach((word, i) => {
-      const btn = document.createElement("button");
-      btn.textContent = word;
-      btn.dataset.index = i;
+    right.forEach((word,i)=>{
+      const btn=document.createElement("button");
+      btn.textContent=word; btn.dataset.index=i;
       rightDiv.appendChild(btn);
     });
 
-    // Простая проверка: клик на пару
-    let selectedLeft = null;
-    leftDiv.querySelectorAll("button").forEach(btn => {
-      btn.onclick = () => {
-        selectedLeft = btn.textContent;
-      }
+    let selectedLeft=null;
+    leftDiv.querySelectorAll("button").forEach(btn=>{
+      btn.onclick=()=>{selectedLeft=btn.textContent;}
     });
-    rightDiv.querySelectorAll("button").forEach(btn => {
-      btn.onclick = () => {
+    rightDiv.querySelectorAll("button").forEach(btn=>{
+      btn.onclick=()=>{
         if(selectedLeft){
-          const correct = VOCAB.find(o => o.en === selectedLeft).ru;
-          document.getElementById("matchFeedback").textContent =
-            (btn.textContent === correct) ? "✅ правильно" : "❌ ошибка";
-          selectedLeft = null;
+          const correct=VOCAB.find(o=>o.en===selectedLeft).ru;
+          document.getElementById("matchFeedback").textContent=(btn.textContent===correct)?"✅ правильно":"❌ ошибка";
+          selectedLeft=null;
         }
       }
     });
@@ -162,15 +158,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   showMatch();
 
-  // =================== Вкладки ===================
-  document.querySelectorAll(".tab").forEach(tab => {
-    tab.onclick = () => {
-      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-      document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
-
+  // === Вкладки ===
+  document.querySelectorAll(".tab").forEach(tab=>{
+    tab.onclick=()=>{
+      document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+      document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
       tab.classList.add("active");
       document.getElementById(tab.dataset.tab).classList.add("active");
-    };
+    }
   });
 
 });
