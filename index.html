@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Vocabulary Trainer</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=4" />
 </head>
 <body>
   <canvas id="fxCanvas" class="fxCanvas" aria-hidden="true"></canvas>
@@ -41,22 +41,23 @@
   <main class="container">
     <!-- Карточки -->
     <section id="cards" class="panel active" role="tabpanel">
-      <div class="card">
-        <div class="row">
-          <div>
-            <div class="label">Выберите английское слово</div>
-            <div id="t1Prompt" class="big"></div>
-            <div id="t1Pron" class="muted"></div>
-          </div>
-          <div class="actions">
-            <button id="btnSpeakT1">🔊 Озвучить</button>
-            <button id="btnT1Next">Следующий</button>
-          </div>
-        </div>
-        <div id="t1Options" class="options"></div>
-        <div id="t1Feedback" class="feedback"></div>
-        <div class="muted" id="t1Index"></div>
-      </div>
+<div class="card">
+  <div class="row">
+    <div>
+      <div class="label">Выберите английское слово</div>
+      <div id="t1Prompt" class="big"></div>
+      <div id="t1Pron" class="muted"></div>
+    </div>
+    <div class="actions">
+      <button id="btnSpeakT1">🔊 Озвучить</button>
+      <button id="btnT1Next">Следующий</button>
+    </div>
+  </div>
+
+  <div id="t1Options" class="options"></div>
+  <div id="t1Feedback" class="feedback"></div>
+  <div class="muted" id="t1Index"></div>
+</div>
     </section>
 
     <!-- MCQ -->
@@ -73,6 +74,7 @@
             <button id="btnMcqNext">Следующий</button>
           </div>
         </div>
+
         <div id="mcqOptions" class="options"></div>
         <div id="mcqFeedback" class="feedback"></div>
         <div class="muted" id="mcqIndex"></div>
@@ -93,10 +95,12 @@
             <button id="btnTypeNext">Следующий</button>
           </div>
         </div>
+
         <div class="row">
           <input id="typeInput" class="input" placeholder="Введите слово (EN)..." autocomplete="off" />
           <button id="btnCheckType" class="primary">Проверить</button>
         </div>
+
         <div id="typeFeedback" class="feedback"></div>
         <div class="muted" id="typeIndex"></div>
       </div>
@@ -114,6 +118,7 @@
             <button id="btnResetMatch">Сбросить пары</button>
           </div>
         </div>
+
         <div class="matchGrid">
           <div>
             <div class="label2">EN</div>
@@ -124,6 +129,7 @@
             <div id="matchRight" class="list"></div>
           </div>
         </div>
+
         <div id="matchFeedback" class="feedback"></div>
         <div class="muted" id="matchProgress"></div>
       </div>
@@ -134,6 +140,6 @@
     <small>Для GitHub Pages: Settings → Pages → Deploy from branch (main / root).</small>
   </footer>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>
